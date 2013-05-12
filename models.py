@@ -9,7 +9,7 @@ EXAM_TYPES = (
 )
 
 class Student(models.Model):
-    am = models.SmallIntegerField(primary_key=True) # XXX: max_value = 10000
+    am = models.SmallIntegerField(unique=True, primary_key=True) # XXX: max_value = 10000
     date_enrolled = models.DateField('Date Enrolled')
     semester = models.IntegerField(default=1)
     first_name = models.CharField(max_length=100)

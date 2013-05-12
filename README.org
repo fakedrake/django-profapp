@@ -1,0 +1,32 @@
+* ProfApp
+  An application to assist a university professor with his data
+  management.
+
+** Roadmap
+   There is still very very much to do before this is alpha. This is a
+   roadmap mockup:
+
+   - Buildout project structure.
+
+   - List/Create/Update/Delete each content type:
+
+     - Student :: This represents a student, ideally it should
+                  communicate with LDAP.
+
+     - Semester Subject :: This is a subject per semesster.  Each
+          semester a professor should need to create a new set of
+          these for each subject.
+
+     - Exam :: This is an exam.
+
+     - Grade :: A student's grade on a specific exam.
+
+   - Copy semester subjects from old years.
+
+   - Grade exports for semester subjects.
+
+   - Graphic design
+
+   - Searching: Find a smart way to make searching efficient.
+
+   - Professor accounts.
