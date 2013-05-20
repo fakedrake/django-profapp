@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-{{ student.am }} : {{ student.first_name }} {{ student.last_name }}
+<p>{{ student.am }} : {{ student.first_name }} {{ student.last_name }} <br>
+Date enrolled: {{ student.date_enrolled }} <br>
+Student semester: {{ student.semester }} <br>
+{% if student.undergraduate %}
+        Undergraduate: {{ student.undergraduate }}
+{% else %}
+        Undergraduate: {{ student.undergraduate }}
+{% endif %} </p>
 {% endblock %}
 
 {% block content %}
