@@ -5,8 +5,9 @@ from django.core.urlresolvers import reverse_lazy
 from django.forms.extras.widgets import SelectDateWidget
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
-from profapp.models import Student
+from profapp.models import Student, SemesterSubject
 from profapp.forms import StudentForm
+
 
 class SqlPresenterMixin(object):
     """ Provide the sql query to the context.
@@ -18,12 +19,13 @@ class SqlPresenterMixin(object):
         context['sqlquery'] = str(self.get_queryset().query)
         return context
 
+# about Student 
+
 class StudentDetailView(SqlPresenterMixin, DetailView):
     template_name = "profapp/student_details.html"
     context_object_name = "student"
     model = Student
     slug_field = 'am'
-
 
 
 class StudentListView(SqlPresenterMixin, ListView):
@@ -43,12 +45,18 @@ class StudentMixin(object):
         return "/students/%s/" % str(self.object.am)
 
 
-class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):
+class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):    
+#    model = Student
     form_class = StudentForm
     template_name = "profapp/student_form.html"
     slug_field = "am"
+    
+    def is_valid():
+        s = Student.objects.get(pk=1)
+	form = StudentForm(request.POST)
+	form.save()
 
-class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):
+class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):   
     form_class = StudentForm
     template_name = "profapp/student_form.html"
     slug_field = "am"
@@ -57,3 +65,6 @@ class StudentDeleteView(SqlPresenterMixin, DeleteView):
     model = Student
     slug_field = "am"
     success_url = reverse_lazy('student-list')
+
+# about SemesterSubject
+
