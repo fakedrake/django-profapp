@@ -7,7 +7,7 @@ Student form
 
 
 {% block content %}
-<form action="/submit_student/{{ student.am }}" method="post">{% csrf_token %}
+<form action="." method="post">{% csrf_token %}
   {{ form.as_p }}
   
   <input type=submit value="Submit!">

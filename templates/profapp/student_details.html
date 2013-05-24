@@ -9,6 +9,8 @@ Student semester: {{ student.semester }} <br>
 {% else %}
         Undergraduate: {{ student.undergraduate }}
 {% endif %} </p>
+<a href="{% url 'update_student' student.am %}">Edit</a> 
+<a href="{% url 'delete_student' student.am %}">Delete</a>
 {% endblock %}
 
 {% block content %}

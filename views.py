@@ -1,7 +1,7 @@
 import datetime
 
 from django import forms
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.extras.widgets import SelectDateWidget
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
@@ -42,7 +42,7 @@ class StudentMixin(object):
     def get_success_url(self):
         """ Redirect to student view.
         """
-        return "/students/%s/" % str(self.object.am)
+        return reverse('student_view', kwargs={ 'slug':str(self.object.am)})
 
 
 class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):    
@@ -50,11 +50,7 @@ class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):
     form_class = StudentForm
     template_name = "profapp/student_form.html"
     slug_field = "am"
-    
-    def is_valid():
-        s = Student.objects.get(pk=1)
-	form = StudentForm(request.POST)
-	form.save()
+
 
 class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):   
     model = Student
@@ -65,7 +61,7 @@ class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):
 class StudentDeleteView(SqlPresenterMixin, DeleteView):
     model = Student
     slug_field = "am"
-    success_url = reverse_lazy('student-list')
+    success_url = reverse_lazy('student_list')
 
 # about SemesterSubject
 
