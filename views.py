@@ -46,7 +46,7 @@ class StudentMixin(object):
 
 
 class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):    
-#    model = Student
+    model = Student
     form_class = StudentForm
     template_name = "profapp/student_form.html"
     slug_field = "am"
@@ -57,6 +57,7 @@ class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):
 	form.save()
 
 class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):   
+    model = Student
     form_class = StudentForm
     template_name = "profapp/student_form.html"
     slug_field = "am"
