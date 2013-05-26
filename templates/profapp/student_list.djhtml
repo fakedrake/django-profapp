@@ -9,7 +9,7 @@ Students
 {% block content %}
     <ul>
         {% for student in students %}
-            <li><a href="/profapp/{{ student.am }}">{{ student.am }}</a></li>
+            <li><a href="{% url 'student_view' student.am %}">{{ student.am }}</a></li>
         {% endfor %}
     </ul>
 
