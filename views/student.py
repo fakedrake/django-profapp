@@ -8,27 +8,16 @@ from django.views.generic import DetailView, ListView, CreateView, UpdateView, D
 from profapp.models import Student, SemesterSubject
 from profapp.forms import StudentForm
 
-
-class SqlPresenterMixin(object):
-    """ Provide the sql query to the context.
-    """
-
-    def get_context_data(self, **kwargs):
-        context = super(SqlPresenterMixin, self).get_context_data(**kwargs)
-
-        context['sqlquery'] = str(self.get_queryset().query)
-        return context
-
 # about Student
 
-class StudentDetailView(SqlPresenterMixin, DetailView):
+class StudentDetailView(DetailView):
     template_name = "profapp/student_details.djhtml"
     context_object_name = "student"
     model = Student
     slug_field = 'am'
 
 
-class StudentListView(SqlPresenterMixin, ListView):
+class StudentListView(ListView):
     template_name = "profapp/student_list.djhtml"
     context_object_name = "students"
     model = Student
@@ -45,20 +34,20 @@ class StudentMixin(object):
         return reverse('student_view', kwargs={ 'slug':str(self.object.am)})
 
 
-class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):
+class StudentCreateView(StudentMixin, CreateView):
     model = Student
     form_class = StudentForm
     template_name = "profapp/student_form.djhtml"
     slug_field = "am"
 
 
-class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):
+class StudentUpdateView(StudentMixin, UpdateView):
     model = Student
     form_class = StudentForm
     template_name = "profapp/student_form.djhtml"
     slug_field = "am"
 
-class StudentDeleteView(SqlPresenterMixin, DeleteView):
+class StudentDeleteView(DeleteView):
     model = Student
     slug_field = "am"
     template_name = "profapp/student_confirm_delete.djhtml"
