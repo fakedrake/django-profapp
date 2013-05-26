@@ -61,6 +61,7 @@ class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):
 class StudentDeleteView(SqlPresenterMixin, DeleteView):
     model = Student
     slug_field = "am"
+    template_name = "profapp/student_confirm_delete.djhtml"
     success_url = reverse_lazy('student_list')
 
 # about SemesterSubject

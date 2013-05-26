@@ -11,9 +11,7 @@ Student form
 {% block content %}
 <form action="." method="post" class="form">{% csrf_token %}
 {% bootstrap_form form layout="vertical" %}
-<div class="form-actions">
-  <input type=submit value="Submit!" class="btn btn-primary">
-  </div>
+<input type=submit value="Submit!" class="btn btn-primary">
 </form>
 {% endblock %}
 
