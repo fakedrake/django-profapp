@@ -14,7 +14,7 @@ class Student(models.Model):
     semester = models.IntegerField(default=1)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    undergraduate = models.BooleanField()
+    undergraduate = models.BooleanField(default=True)
 
 class SemesterSubject(models.Model):
     students = models.ManyToManyField(Student)
