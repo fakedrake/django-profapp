@@ -1,18 +1,32 @@
 {% extends "base.djhtml" %}
 
 {% block title %}
-<p>{{ student.am }} : {{ student.first_name }} {{ student.last_name }} <br>
-Date enrolled: {{ student.date_enrolled }} <br>
-Student semester: {{ student.semester }} <br>
-{% if student.undergraduate %}
-        Undergraduate: {{ student.undergraduate }}
-{% else %}
-        Undergraduate: {{ student.undergraduate }}
-{% endif %} </p>
-<a href="{% url 'update_student' student.am %}">Edit</a>
-<a href="{% url 'delete_student' student.am %}">Delete</a>
+<p>{{ student.am }} - {{ student.first_name }} {{ student.last_name }} </p>
 {% endblock %}
 
 {% block content %}
-That's all for now.
+<p>
+  <a class="btn btn-primary" href="{% url 'update_student' student.am %}"><i class="icon-pencil icon-white"></i> Edit</a>
+  <a class="btn btn-danger" href="{% url 'delete_student' student.am %}"><i class="icon-trash icon-white"></i> Delete</a>
+</p>
+<dl class="dl-horizontal">
+  <dt>AM</dt>
+  <dd>{{ student.am }}</dd>
+
+  <dt>First Name</dt>
+  <dd>{{ student.first_name }}</dd>
+
+  <dt>Last Name</dt>
+  <dd>{{ student.last_name }}</dd>
+
+  <dt>Degree</dt>
+  {% if student.undergraduate %}
+  <dd>Undergraduate</dd>
+  {% else %}
+  <dd>Postgraduate</dd>
+  {% endif %}
+
+  <dt>Enrollment date</dt>
+  <dd>{{ student.date_enrolled }}</dd>
+</dl>
 {% endblock %}
