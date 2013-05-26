@@ -14,7 +14,7 @@
     <div class="navbar navbar-static-top navbar-inverse">
       <div class="navbar-inner">
         <ul class="nav">
-          <li><a class="brand" href="">ProfApp</a></li>
+          <li><a class="brand" href="{% url 'profapp_home' %}">ProfApp</a></li>
 	  <li><a href="{% url 'student_list' %}">Student List</a></li>
 	  <li><a href="/admin/">Admin</a></li>
         </ul>
