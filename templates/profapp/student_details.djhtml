@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.djhtml" %}
 
 {% block title %}
 <p>{{ student.am }} : {{ student.first_name }} {{ student.last_name }} <br>
@@ -9,7 +9,7 @@ Student semester: {{ student.semester }} <br>
 {% else %}
         Undergraduate: {{ student.undergraduate }}
 {% endif %} </p>
-<a href="{% url 'update_student' student.am %}">Edit</a> 
+<a href="{% url 'update_student' student.am %}">Edit</a>
 <a href="{% url 'delete_student' student.am %}">Delete</a>
 {% endblock %}
 

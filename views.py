@@ -19,17 +19,17 @@ class SqlPresenterMixin(object):
         context['sqlquery'] = str(self.get_queryset().query)
         return context
 
-# about Student 
+# about Student
 
 class StudentDetailView(SqlPresenterMixin, DetailView):
-    template_name = "profapp/student_details.html"
+    template_name = "profapp/student_details.djhtml"
     context_object_name = "student"
     model = Student
     slug_field = 'am'
 
 
 class StudentListView(SqlPresenterMixin, ListView):
-    template_name = "profapp/student_list.html"
+    template_name = "profapp/student_list.djhtml"
     context_object_name = "students"
     model = Student
 
@@ -45,17 +45,17 @@ class StudentMixin(object):
         return reverse('student_view', kwargs={ 'slug':str(self.object.am)})
 
 
-class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):    
+class StudentCreateView(SqlPresenterMixin, StudentMixin, CreateView):
     model = Student
     form_class = StudentForm
-    template_name = "profapp/student_form.html"
+    template_name = "profapp/student_form.djhtml"
     slug_field = "am"
 
 
-class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):   
+class StudentUpdateView(SqlPresenterMixin, StudentMixin, UpdateView):
     model = Student
     form_class = StudentForm
-    template_name = "profapp/student_form.html"
+    template_name = "profapp/student_form.djhtml"
     slug_field = "am"
 
 class StudentDeleteView(SqlPresenterMixin, DeleteView):
@@ -64,4 +64,3 @@ class StudentDeleteView(SqlPresenterMixin, DeleteView):
     success_url = reverse_lazy('student_list')
 
 # about SemesterSubject
-
