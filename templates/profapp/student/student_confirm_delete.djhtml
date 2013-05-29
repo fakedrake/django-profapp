@@ -1,0 +1,13 @@
+{% extends "base.djhtml" %}
+
+{% block title %}
+Delete student {{ student.am }}?
+{% endblock %}
+
+
+
+{% block content %}
+<form action="." method="post">{% csrf_token %}
+  <input type="submit" value="Delete!" />
+</form>
+{% endblock %}

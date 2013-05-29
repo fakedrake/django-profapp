@@ -5,20 +5,20 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.extras.widgets import SelectDateWidget
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
-from profapp.models import Student, SemesterSubject
+from profapp.models import Student
 from profapp.forms import StudentForm
 
 # about Student
 
 class StudentDetailView(DetailView):
-    template_name = "profapp/student_details.djhtml"
+    template_name = "profapp/student/student_details.djhtml"
     context_object_name = "student"
     model = Student
     slug_field = 'am'
 
 
 class StudentListView(ListView):
-    template_name = "profapp/student_list.djhtml"
+    template_name = "profapp/student/student_list.djhtml"
     context_object_name = "students"
     model = Student
 
@@ -37,20 +37,19 @@ class StudentMixin(object):
 class StudentCreateView(StudentMixin, CreateView):
     model = Student
     form_class = StudentForm
-    template_name = "profapp/student_form.djhtml"
+    template_name = "profapp/student/student_form.djhtml"
     slug_field = "am"
 
 
 class StudentUpdateView(StudentMixin, UpdateView):
     model = Student
     form_class = StudentForm
-    template_name = "profapp/student_form.djhtml"
+    template_name = "profapp/student/student_form.djhtml"
     slug_field = "am"
 
 class StudentDeleteView(DeleteView):
     model = Student
     slug_field = "am"
-    template_name = "profapp/student_confirm_delete.djhtml"
+    template_name = "profapp/student/student_confirm_delete.djhtml"
     success_url = reverse_lazy('student_list')
 
-# about SemesterSubject
