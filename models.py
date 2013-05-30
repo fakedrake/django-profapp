@@ -20,6 +20,7 @@ class SemesterSubject(models.Model):
     students = models.ManyToManyField(Student)
     name = models.CharField(max_length=100)
     year = models.IntegerField()
+    unique_together = ('name','year')
 
 class Exam(models.Model):
     subject = models.ForeignKey(SemesterSubject)
