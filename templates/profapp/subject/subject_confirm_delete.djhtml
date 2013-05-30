@@ -1,0 +1,14 @@
+{% extends "base.djhtml" %}
+
+{% block title %}
+Delete subject {{ semestersubject.name }} on {{ semestersubject.year }}?
+{% endblock %}
+
+
+
+{% block content %}
+<form action="." method="post">{% csrf_token %}
+  <input type="submit" value="Delete!" />
+</form>
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends "base.djhtml" %}
+
+{% block title %}
+Subjects
+{% endblock %}
+
+
+
+{% block content %}
+<table class="table table-hover">
+  <tr>
+    <th>Name</th>
+    <th>Action</th>
+  </tr>
+  {% for subject in subjects %}
+  <tr>
+    <td>{{ subject.name }}</td>
+    <td>
+      <div class="btn-group">
+        <a class="btn btn-primary" href="{% url 'subject_year_list' subject.name %}"><i class="icon-user icon-white"></i> Show</a>
+      </div>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<p>
+  <a class="btn btn-success" href="{% url 'subject_create' %}"><i class="icon-plus icon-white"></i> New Subject</a>
+</p>
+
+{% endblock %}
+
