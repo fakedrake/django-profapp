@@ -19,9 +19,8 @@ class SubjectYearDetailView(DetailView):
     template_name = "profapp/subject/subject_year_details.djhtml"
     context_object_name = "subject_year"
     model = SemesterSubject
+#    slug_field = ('name','year')
     slug_field = 'name'
-    unique_together = ('name','year')
-
 
 class SubjectListView(ListView):
     template_name = "profapp/subject/subject_list.djhtml"
