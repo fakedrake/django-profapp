@@ -20,6 +20,7 @@ class SubjectYearDetailView(DetailView):
     context_object_name = "subject_year"
     model = SemesterSubject
     slug_field = 'name'
+    unique_together = ('name','year')
 
 
 class SubjectListView(ListView):

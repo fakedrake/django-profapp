@@ -17,7 +17,7 @@ When?
     <td>{{ subject.year }}</td>
     <td>
       <div class="btn-group">
-        <a class="btn btn-primary" href="{% url 'subject_year_view' subject.name %}"><i class="icon-user icon-white"></i> Show</a>
+        <a class="btn btn-primary" href="{% url 'subject_year_view' subject.name subject.year %}"><i class="icon-user icon-white"></i> Show</a>
 	<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
        
       </div>

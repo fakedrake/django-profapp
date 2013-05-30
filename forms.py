@@ -17,3 +17,4 @@ class SemesterSubjectForm(ModelForm):
 
     class Meta:
 	model = SemesterSubject
+#	unique_together = ('name','year')
