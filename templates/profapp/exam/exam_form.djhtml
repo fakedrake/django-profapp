@@ -1,0 +1,21 @@
+{% extends "base.djhtml" %}
+{% load static from staticfiles %}
+
+
+{% load bootstrap_toolkit %}
+
+{% block title %}
+Exam form
+{% endblock %}
+
+{% block content %}
+<form enctype="multipart/form-data"  action="." method="post" class="form">{% csrf_token %}
+{% bootstrap_form form layout="vertical" %}
+<input type=submit value="Submit!" class="btn btn-primary">
+</form>
+{% endblock %}
+
+{% block extrahead %}
+{{ form.media }}
+{% endblock %}
+

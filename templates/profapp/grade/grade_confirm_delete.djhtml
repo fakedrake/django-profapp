@@ -1,18 +1,18 @@
 {% extends "base.djhtml" %}
 
 {% block title %}
-Delete subject {{ semestersubject.name }} on {{ semestersubject.year }}?
+Delete {{ grade.student.am }} - {{ grade.exam.subject.name }} Grade?
 {% endblock %}
 
 
 
 {% block content %}
 <form action="." method="post">{% csrf_token %}
-	<div class="btn-group">
+    <div class="btn-group">
           <button type="submit" class="btn btn-large btn-danger">
-                <i class="icon-trash icon-white"></i> Delete Subject
+                <i class="icon-trash icon-white"></i> Delete Grade
           </button>
-    	</div>
+    </div>
 </form>
 {% endblock %}
 

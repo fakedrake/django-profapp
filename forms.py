@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from profapp.models import Student, SemesterSubject
+from profapp.models import Student, SemesterSubject, Exam, Grade
 from bootstrap_toolkit.widgets import BootstrapDateInput, BootstrapTextInput, BootstrapUneditableInput
 
 class StudentForm(ModelForm):
@@ -17,4 +17,14 @@ class SemesterSubjectForm(ModelForm):
 
     class Meta:
 	model = SemesterSubject
+
+class ExamForm(ModelForm):
+
+    class Meta:
+        model = Exam
+
+class GradeForm(ModelForm):
+
+    class Meta:
+        model = Grade
 

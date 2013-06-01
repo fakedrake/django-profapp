@@ -17,6 +17,7 @@
         <ul class="nav">
           <li><a class="brand" href="{% url 'profapp_home' %}">ProfApp</a></li>
 	  <li><a href="{% url 'student_list' %}">Student List</a></li>
+	   <li><a href="{% url 'subject_list' %}">Subject List</a></li>
 	  <li><a href="/admin/">Admin</a></li>
         </ul>
       </div>

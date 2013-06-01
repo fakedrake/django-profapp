@@ -2,10 +2,10 @@ from django.db import models
 from django.forms.extras.widgets import SelectDateWidget
 
 EXAM_TYPES = (
-    ('m', 'midterm'),
-    ('f', 'final'),
-    ('e', 'excercise'),
-    ('t', 'test'),
+    ('m', 'Midterm'),
+    ('f', 'Final'),
+    ('e', 'Excercise'),
+    ('t', 'Test'),
 )
 
 class Student(models.Model):
@@ -16,19 +16,33 @@ class Student(models.Model):
     last_name = models.CharField(max_length=100)
     undergraduate = models.BooleanField(default=True)
 
+    def __unicode__(self):
+        return str(self.am)
+
+
 class SemesterSubject(models.Model):
     students = models.ManyToManyField(Student)
     name = models.CharField(max_length=100)
     year = models.IntegerField()
     unique_together = ('name','year')
+    
+    def __unicode__(self): 
+        return u"%s - %s" % (self.name, self.year)	
+
 
 class Exam(models.Model):
     subject = models.ForeignKey(SemesterSubject)
-    type = models.CharField(max_length=1, choices=EXAM_TYPES)
+    type = models.CharField(max_length=15, choices=EXAM_TYPES)
     percent = models.FloatField()
     question_set = models.FileField(upload_to="files/")
+
+    def __unicode__(self):
+        return self.subject.name+" "+self.type
 
 class Grade(models.Model):
     student = models.ForeignKey(Student)
     grade = models.IntegerField(default=0)
     exam = models.ForeignKey(Exam)
+ 
+    def __unicode__(self):
+        return self.exam.subject.name+" "+self.exam.type+" "+str(self.student.am)

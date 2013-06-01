@@ -1,10 +1,14 @@
 {% extends "base.djhtml" %}
 
 {% block title %}
-<p>{{ subject_year.name }} - {{ subject_year.year }} {{ subject_year.students }} </p>
+<p>{{ subject_year.name }} - {{ subject_year.year }} </p>
 {% endblock %}
 
 {% block content %}
+
+  <a class="btn btn-primary" href="{% url 'update_subject' subject_year.pk %}"><i class="icon-pencil icon-white"></i> Edit</a>
+  <a class="btn btn-danger" href="{% url 'delete_subject' subject_year.pk %}"><i class="icon-trash icon-white"></i> Delete</a>
+
 <dl class="dl-horizontal">
   <dt>Name</dt>
   <dd>{{ subject_year.name }}</dd>
@@ -13,7 +17,10 @@
   <dd>{{ subject_year.year }}</dd>
 
   <dt>Students</dt>
-  <dd>{{ subject_year.students }}</dd>
+  <dd><a href="{% url 'student_list' %}?subj={{ subject_year.pk }}">{{ student_count }} students enrolled</a></dd>
+  
+  <dt>Exam count</dt>
+  <dd><a href="{% url 'exam_view' %}?subj={{ subject_year.pk }}">{{ exam_count}} registered exams</a></dd>
 
 </dl>
 {% endblock %}

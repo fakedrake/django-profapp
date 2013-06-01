@@ -5,10 +5,9 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.extras.widgets import SelectDateWidget
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
-from profapp.models import Student
+from profapp.models import Student, SemesterSubject
 from profapp.forms import StudentForm
 
-# about Student
 
 class StudentDetailView(DetailView):
     template_name = "profapp/student/student_details.djhtml"
@@ -21,7 +20,15 @@ class StudentListView(ListView):
     template_name = "profapp/student/student_list.djhtml"
     context_object_name = "students"
     model = Student
-
+    
+    def get_queryset(self):
+	subject = self.request.GET.get("subj")
+	if subject:
+	    obj = SemesterSubject.objects.get(pk=subject)
+	    return obj.students.all()
+	else:
+	    return super(StudentListView, self).get_queryset()
+  	
 
 class StudentMixin(object):
     """ A mixin to do standard stuff.

@@ -5,21 +5,20 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.extras.widgets import SelectDateWidget
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
-from profapp.models import SemesterSubject
+from profapp.models import SemesterSubject,Exam
 from profapp.forms import SemesterSubjectForm
 
-
-class SubjectDetailView(DetailView):
-    template_name = "profapp/subject/subject_details.djhtml"
-    context_object_name = "subject"
-    model = SemesterSubject
-    slug_field = 'name'
 
 class SubjectYearDetailView(DetailView):
     template_name = "profapp/subject/subject_year_details.djhtml"
     context_object_name = "subject_year"
     model = SemesterSubject
-    slug_field = ('name','year')
+
+    def get_context_data(self, **kwargs):
+        kwargs['exam_count'] = len(Exam.objects.filter(subject=self.object.pk))
+	kwargs['student_count'] = len(self.object.students.all())
+        return super(SubjectYearDetailView, self).get_context_data(**kwargs)
+
 
 class SubjectListView(ListView):
     template_name = "profapp/subject/subject_list.djhtml"
@@ -36,8 +35,8 @@ class SubjectYearListView(ListView):
     slug_field = 'name'
 
     def get_queryset(self):
-	
-	return SemesterSubject.objects.filter()
+     	subj = self.kwargs['slug']
+        return SemesterSubject.objects.filter(name=subj)
 
 
 class SemesterSubjectMixin(object):
@@ -54,7 +53,7 @@ class SemesterSubjectCreateView(SemesterSubjectMixin, CreateView):
     model = SemesterSubject
     form_class = SemesterSubjectForm
     template_name = "profapp/subject/subject_form.djhtml"
-    slug_field = ("name", "year")
+    slug_field = "name"
 
 
 class SemesterSubjectUpdateView(SemesterSubjectMixin, UpdateView):
@@ -65,7 +64,9 @@ class SemesterSubjectUpdateView(SemesterSubjectMixin, UpdateView):
 
 class SemesterSubjectDeleteView(DeleteView):
     model = SemesterSubject
-    slug_field = "name"
+    slug_field = ("name","year")
     template_name = "profapp/subject/subject_confirm_delete.djhtml"
-    success_url = reverse_lazy('subject_list')
+    def get_success_url(self):
+
+	return reverse('subject_year_list', kwargs={ 'slug':str(self.object.name) })
 
