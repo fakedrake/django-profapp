@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.extras.widgets import SelectDateWidget
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
-from profapp.models import SemesterSubject,Exam
+from profapp.models import SemesterSubject, Exam, Grade
 from profapp.forms import SemesterSubjectForm
 
 
@@ -17,7 +17,11 @@ class SubjectYearDetailView(DetailView):
     def get_context_data(self, **kwargs):
         kwargs['exam_count'] = len(Exam.objects.filter(subject=self.object.pk))
 	kwargs['student_count'] = len(self.object.students.all())
-        return super(SubjectYearDetailView, self).get_context_data(**kwargs)
+	kwargs['grade_count'] = 0
+	for e in Exam.objects.filter(subject=self.object.pk):
+		kwargs['grade_count'] += len(Grade.objects.filter(exam=e.pk))
+        
+	return super(SubjectYearDetailView, self).get_context_data(**kwargs)
 
 
 class SubjectListView(ListView):

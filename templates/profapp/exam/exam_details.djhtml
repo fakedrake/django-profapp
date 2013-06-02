@@ -1,7 +1,7 @@
 {% extends "base.djhtml" %}
 
 {% block title %}
-{{ exam.get_type_display }} - {{ exam.subject.name }} {{ exam.subject.year }}
+{{ exam.get_type_display }} - <a href="{% url 'subject_year_view' exam.subject.pk %}"> {{ exam.subject }}</a>
 {% endblock %}
 
 {% block content %}
@@ -22,5 +22,7 @@
   <dt>Question Set</dt>
   <dd><a href="{% url 'exam_details' exam.pk %}?download=1">{{ exam.question_set}}</a></dd>
 
+  <dt>Grades</dt>
+  <dd><a href="{% url 'grade_list' %}?exam={{ exam.pk }}">{{ grade_count }}</a></dd>
 </dl>
 {% endblock %}

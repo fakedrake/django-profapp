@@ -25,10 +25,12 @@ All exams
     <td><a href="{% url 'exam_details' exam.pk %}?download=1"> {{ exam.question_set }}</a></td>
     <td>
 	<div class="btn-group">
-	   <a class="btn btn-primary" href="{% url 'update_exam' exam.pk %}"><i class="icon-edit icon-white"></i> Edit</a>
+	   <a class="btn btn-primary" href="{% url 'exam_details' exam.pk %}"><i class="icon-star-empty icon-white"></i> Show</a>
 	   <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 	   <ul class="dropdown-menu">
+		<li><a href="{% url 'update_exam' exam.pk %}"><i class="icon-edit icon-black"></i> Edit</a></li>
                 <li><a href="{% url 'delete_exam' exam.pk %}"><i class="icon-trash icon-black"></i> Delete Exam</a></li>
+                <li><a href="{% url 'grade_list' %}?exam={{ exam.pk }}"><i class="icon-list icon-black"></i> Show Grades</a></li>
            </ul>
         </div>
     </td>

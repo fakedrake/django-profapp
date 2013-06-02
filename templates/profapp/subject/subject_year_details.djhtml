@@ -22,5 +22,8 @@
   <dt>Exam count</dt>
   <dd><a href="{% url 'exam_view' %}?subj={{ subject_year.pk }}">{{ exam_count}} registered exams</a></dd>
 
+<dt>Grades</dt>
+<dd><a href="{% url 'grade_list' %}?subj={{ subject_year.pk }}">{{ grade_count }} grade{% if grade_count != 1 %}s{% endif %}</a></dd>
+
 </dl>
 {% endblock %}

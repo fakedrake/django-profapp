@@ -3,11 +3,17 @@
 {% block title %}
 Grades
 {% if student %}
- for <a href="{% url 'student_detail' student.am %}">{{ student }}<\a>
+ - <a href="{% url 'student_view' student.pk %}">{{ student }}</a>
 {% endif %}
+
 {% if subject %}
  - <a href="{% url 'subject_year_view' subject.pk %}">{{ subject }}</a>
 {% endif %}
+
+{% if exam %}
+ - <a href="{% url 'exam_details' exam.pk %}">{{ exam }}</a>
+{% endif %}
+
 {% endblock %}
 
 
@@ -30,7 +36,7 @@ Grades
       {% for grade in grades %}
   <tr>
 {% if not student %}
-    <td>{{ grade.student.am }}</td>
+    <td><a href="{% url 'student_view' grade.student.am %}">{{ grade.student.am }}</a></td>
 {% endif %}
 {% if not subject %}
     <td><a href="{% url 'subject_year_view' grade.exam.subject.pk %}">{{ grade.exam.subject.name }}</a></td>
@@ -52,7 +58,7 @@ Grades
 </table>
       
 {% else %}
-	<p> No grades for this student yet! </p>
+	<p> No grades found! </p>
 {% endif %}
 <p>
   <a class="btn btn-success" href="{% url 'grade_create' %}"><i class="icon-plus icon-white"></i> New Grade</a>
