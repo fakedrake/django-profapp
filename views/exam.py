@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.extras.widgets import SelectDateWidget
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
-from profapp.models import Exam, SemesterSubject
+from profapp.models import Exam, Grade, SemesterSubject
 from profapp.forms import ExamForm
 
 
@@ -70,6 +70,11 @@ class ExamDetailView(DetailView):
     context_object_name = "exam"
     model = Exam
 
+    def get_context_data(self, **kwargs):
+        kwargs['grade_count'] = len(Grade.objects.filter(exam=self.object.pk))
+ 
+	return super(ExamDetailView, self).get_context_data(**kwargs)
+  
     def render_to_response(self, context, **response_kwargs):
         if self.request.GET.get('download'):
             fd = self.object.question_set.file

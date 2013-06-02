@@ -16,16 +16,35 @@ class GradeListView(ListView):
 
     def get_context_data(self, **kwargs):
         stud = self.request.GET.get('stud')
+	subj = self.request.GET.get('subj')
+        exam = self.request.GET.get('exam')
         if stud:
-             kwargs['student'] = Student.objects.get(pk=stud)
+            kwargs['student'] = Student.objects.get(pk=stud)
+
+	if subj:
+            kwargs['subject'] = SemesterSubject.objects.get(pk=subj)
+
+	if exam:
+	    kwargs['exam'] = Exam.objects.get(pk=exam)
 
         return super(GradeListView, self).get_context_data(**kwargs)
     
     def get_queryset(self):
+	filters = dict()
         stud = self.request.GET.get('stud')
-        if stud and Grade.objects.filter(student=int(stud)):
-            return Grade.objects.filter(student=int(stud))
-        else:
+	exam = self.request.GET.get('exam')
+	subj = self.request.GET.get('subj')
+
+        if stud:
+            filters['student'] = int(stud)
+	if exam:
+	    filters['exam'] = int(exam)
+	if subj:
+	    filters['subj'] = int(subj)
+    
+	if filters:
+	    return Grade.objects.filter(**filters)
+	else:
             return super(GradeListView, self).get_queryset()
     
 class GradeMixin(object):
