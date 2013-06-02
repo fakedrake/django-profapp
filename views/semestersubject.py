@@ -24,7 +24,7 @@ class SubjectListView(ListView):
     template_name = "profapp/subject/subject_list.djhtml"
     context_object_name = "subjects"
     model = SemesterSubject
-    
+
     def get_queryset(self):
 	return SemesterSubject.objects.values('name').distinct()
 
@@ -47,7 +47,7 @@ class SemesterSubjectMixin(object):
     def get_success_url(self):
         """ Redirect to subject_year view.
         """
-        return reverse('subject_year_view', kwargs={ 'slug':str(self.object.name), 'pk':self.object.pk })
+        return reverse('subject_year_view', kwargs={ 'pk': self.object.pk })
 
 class SemesterSubjectCreateView(SemesterSubjectMixin, CreateView):
     model = SemesterSubject
@@ -69,4 +69,3 @@ class SemesterSubjectDeleteView(DeleteView):
     def get_success_url(self):
 
 	return reverse('subject_year_list', kwargs={ 'slug':str(self.object.name) })
-

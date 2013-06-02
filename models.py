@@ -25,9 +25,9 @@ class SemesterSubject(models.Model):
     name = models.CharField(max_length=100)
     year = models.IntegerField()
     unique_together = ('name','year')
-    
-    def __unicode__(self): 
-        return u"%s - %s" % (self.name, self.year)	
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.name, self.year)
 
 
 class Exam(models.Model):
@@ -37,12 +37,12 @@ class Exam(models.Model):
     question_set = models.FileField(upload_to="files/")
 
     def __unicode__(self):
-        return self.subject.name+" "+self.type
+        return u"%s %s" % (self.subject.name, self.type)
 
 class Grade(models.Model):
     student = models.ForeignKey(Student)
     grade = models.IntegerField(default=0)
     exam = models.ForeignKey(Exam)
- 
+
     def __unicode__(self):
         return self.exam.subject.name+" "+self.exam.type+" "+str(self.student.am)

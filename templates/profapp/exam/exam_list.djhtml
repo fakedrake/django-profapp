@@ -1,7 +1,11 @@
 {% extends "base.djhtml" %}
 
 {% block title %}
+{% if subject %}
 Exams: <a href = "{% url 'subject_year_view' subject.pk %}">{{ subject.name }} - {{ subject.year }}</a>
+{% else %}
+All exams
+{% endif %}
 {% endblock %}
 
 
@@ -16,9 +20,9 @@ Exams: <a href = "{% url 'subject_year_view' subject.pk %}">{{ subject.name }} -
   </tr>
   {% for exam in exams %}
   <tr>
-    <td>{{ exam.get_type_display }}</td>
-    <td>{{ exam.percent }}</td>
-    <td>{{ exam.question_set }}</td>
+    <td> {{ exam.get_type_display }} </td>
+    <td> {{ exam.percent }} </td>
+    <td><a href="{% url 'exam_details' exam.pk %}?download=1"> {{ exam.question_set }}</a></td>
     <td>
 	<div class="btn-group">
 	   <a class="btn btn-primary" href="{% url 'update_exam' exam.pk %}"><i class="icon-edit icon-white"></i> Edit</a>
@@ -26,7 +30,7 @@ Exams: <a href = "{% url 'subject_year_view' subject.pk %}">{{ subject.name }} -
 	   <ul class="dropdown-menu">
                 <li><a href="{% url 'delete_exam' exam.pk %}"><i class="icon-trash icon-black"></i> Delete Exam</a></li>
            </ul>
-        </div> 
+        </div>
     </td>
   </tr>
   {% endfor %}
@@ -35,4 +39,3 @@ Exams: <a href = "{% url 'subject_year_view' subject.pk %}">{{ subject.name }} -
   <a class="btn btn-success" href="{% url 'exam_create' %}"><i class="icon-plus icon-white"></i> New Exam</a>
 </p>
 {% endblock %}
-
