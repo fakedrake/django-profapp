@@ -17,8 +17,7 @@ class GradeListView(ListView):
     def get_context_data(self, **kwargs):
         stud = self.request.GET.get('stud')
         if stud:
-	    if Grade.objects.filter(student=int(stud)):
-                kwargs['student'] = Grade.objects.get(student=int(stud))
+             kwargs['student'] = Student.objects.get(pk=stud)
 
         return super(GradeListView, self).get_context_data(**kwargs)
     
