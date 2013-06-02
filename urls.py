@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^exams/(?P<pk>\d+)/delete/$', exam.ExamDeleteView.as_view(), name="delete_exam"),
     url(r'^exams/(?P<pk>\d+)/update/$', exam.ExamUpdateView.as_view(), name="update_exam"),
 
+    url(r'^grade/new/$', grade.GradeCreateView.as_view(), name="grade_create"),
     url(r'^grades/$', grade.GradeListView.as_view(), name="grade_list"),
     url(r'^grades/(?P<pk>\d+)/update/$', grade.GradeUpdateView.as_view(), name="update_grade"),
     url(r'^grades/(?P<pk>\d+)/delete/$', grade.GradeDeleteView.as_view(), name="delete_grade"),

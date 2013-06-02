@@ -13,7 +13,21 @@ class GradeListView(ListView):
     template_name = "profapp/grade/grade_list.djhtml"
     context_object_name = "grades"
     model = Grade
+
+    def get_context_data(self, **kwargs):
+        stud = self.request.GET.get('stud')
+        if stud:
+	    if Grade.objects.filter(student=int(stud)):
+                kwargs['student'] = Grade.objects.get(student=int(stud))
+
+        return super(GradeListView, self).get_context_data(**kwargs)
     
+    def get_queryset(self):
+        stud = self.request.GET.get('stud')
+        if stud and Grade.objects.filter(student=int(stud)):
+            return Grade.objects.filter(student=int(stud))
+        else:
+            return super(GradeListView, self).get_queryset()
     
 class GradeMixin(object):
     """ A mixin to do standard stuff.

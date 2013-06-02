@@ -37,7 +37,8 @@ class Exam(models.Model):
     question_set = models.FileField(upload_to="files/")
 
     def __unicode__(self):
-        return u"%s %s" % (self.subject.name, self.type)
+	EX_T = dict(EXAM_TYPES)
+        return u"%s %s" % (self.subject.name, EX_T[self.type])
 
 class Grade(models.Model):
     student = models.ForeignKey(Student)

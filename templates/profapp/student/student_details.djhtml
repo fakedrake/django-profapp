@@ -18,6 +18,9 @@
 
   <dt>Last Name</dt>
   <dd>{{ student.last_name }}</dd>
+  
+  <dt>Grades</dt>
+  <dd><a href="{% url 'grade_list' %}?stud={{ student.pk }}">Grade List</a></dd>
 
   <dt>Degree</dt>
   {% if student.undergraduate %}

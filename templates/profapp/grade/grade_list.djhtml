@@ -7,6 +7,9 @@ Grades
 
 
 {% block content %}
+{% if request.GET.stud %}
+  {% with stud_id=request.GET.stud %}
+    {% if grade.stud_id %}
 <table class="table table-hover">
   <tr>
     <th>Student</th>
@@ -16,7 +19,7 @@ Grades
     <th>Grade</th>
     <th>Action</th>
   </tr>
-  {% for grade in grades %}
+      {% for grade in grades %}
   <tr>
     <td>{{ grade.student.am }}</td>
     <td>{{ grade.exam.subject.name }}</td>
@@ -33,10 +36,16 @@ Grades
       </div>
     </td>
   </tr>
-  {% endfor %}
+      {% endfor %}
 </table>
+      
+    {% else %}
+	<p> No grades for this student yet! </p>
+    {% endif %}
+  {% endwith %}
+{% endif %}
 <p>
-  <a class="btn btn-success" href="{% url 'student_create' %}"><i class="icon-plus icon-white"></i> New User</a>
+  <a class="btn btn-success" href="{% url 'grade_create' %}"><i class="icon-plus icon-white"></i> New Grade</a>
 </p>
 
 {% endblock %}
