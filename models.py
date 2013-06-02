@@ -17,7 +17,7 @@ class Student(models.Model):
     undergraduate = models.BooleanField(default=True)
 
     def __unicode__(self):
-        return str(self.am)
+        return u"%s %s(%d)" % (self.first_name, self.last_name, self.am)
 
 
 class SemesterSubject(models.Model):

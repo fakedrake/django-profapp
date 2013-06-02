@@ -2,27 +2,39 @@
 
 {% block title %}
 Grades
+{% if student %}
+ for <a href="{% url 'student_detail' student.am %}">{{ student }}<\a>
+{% endif %}
+{% if subject %}
+ - <a href="{% url 'subject_year_view' subject.pk %}">{{ subject }}</a>
+{% endif %}
 {% endblock %}
 
 
 
 {% block content %}
-{% if request %}
-{% with stud_id=request.GET.stud %}
 {% if grades %}
 <table class="table table-hover">
   <tr>
+{% if not student %}
     <th>Student</th>
+{% endif %}
+{% if not subject %}
     <th>Subject</th>
+{% endif %}
     <th>Year</th>
     <th>Exam</th>
     <th>Grade</th>
     <th>Action</th>
   </tr>
-  {% for grade in grades %}
+      {% for grade in grades %}
   <tr>
+{% if not student %}
     <td>{{ grade.student.am }}</td>
-    <td>{{ grade.exam.subject.name }}</td>
+{% endif %}
+{% if not subject %}
+    <td><a href="{% url 'subject_year_view' grade.exam.subject.pk %}">{{ grade.exam.subject.name }}</a></td>
+{% endif %}
     <td>{{ grade.exam.subject.year }}</td>
     <td>{{ grade.exam.get_type_display }}</td>
     <td>{{ grade.grade }}</td>
@@ -36,13 +48,11 @@ Grades
       </div>
     </td>
   </tr>
-  {% endfor %}
+{% endfor %}
 </table>
-
+      
 {% else %}
-<p> No grades for this student yet! </p>
-{% endif %}
-{% endwith %}
+	<p> No grades for this student yet! </p>
 {% endif %}
 <p>
   <a class="btn btn-success" href="{% url 'grade_create' %}"><i class="icon-plus icon-white"></i> New Grade</a>
