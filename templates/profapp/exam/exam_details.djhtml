@@ -1,0 +1,26 @@
+{% extends "base.djhtml" %}
+
+{% block title %}
+{{ exam.get_type_display }} - {{ exam.subject.name }} {{ exam.subject.year }}
+{% endblock %}
+
+{% block content %}
+
+<a class="btn btn-primary" href="{% url 'update_exam' exam.pk %}"><i class="icon-pencil icon-white"></i> Edit</a>
+<a class="btn btn-danger" href="{% url 'delete_exam' exam.pk %}"><i class="icon-trash icon-white"></i> Delete</a>
+
+<dl class="dl-horizontal">
+  <dt>Name</dt>
+  <dd>{{ exam }}</dd>
+
+  <dt>Year</dt>
+  <dd>{{ exam.subject.year }}</dd>
+
+  <dt>Subject</dt>
+  <dd><a href="{% url 'subject_year_view' exam.subject.pk %}">{{ exam.subject }}</a></dd>
+
+  <dt>Question Set</dt>
+  <dd><a href="{% url 'exam_details' exam.pk %}?download=1">{{ exam.question_set}}</a></dd>
+
+</dl>
+{% endblock %}
