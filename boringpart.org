@@ -34,13 +34,14 @@
   Τέλος είναι και η οντότητα "Βαθμοί" με μοναδικό γνώρισμα τον βαθμό
   που πήρε συγκεκριμένος φοιτητής σε συγκεκριμένο διαγώνισμα.
 
-  #+CAPTION: Το ERD διάγραμμα της βάσης.
-  #+NAME:   fig:profapp_erd.png
-  [[./profapp_erd.png]]
-
   #+CAPTION: Το λογικό διάγραμμα της βάσης.
   #+NAME:   fig:profapp_erd.png
   [[./profapp.png]]
+
+
+  #+CAPTION: Το ERD διάγραμμα της βάσης.
+  #+NAME:   fig:profapp_erd.png
+  [[./profapp_erd.png]]
 
 * Δημιουργία Βάσης
   Η SQL που παράγει τη βάση:
