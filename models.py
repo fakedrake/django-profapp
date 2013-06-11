@@ -34,7 +34,7 @@ class Exam(models.Model):
     subject = models.ForeignKey(SemesterSubject)
     type = models.CharField(max_length=15, choices=EXAM_TYPES)
     percent = models.FloatField()
-    question_set = models.FileField(upload_to="files/")
+    question_set = models.FileField(upload_to="files/", requured=False)
 
     def __unicode__(self):
 	EX_T = dict(EXAM_TYPES)

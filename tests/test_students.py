@@ -23,9 +23,12 @@ class TestStudent(TestCase):
 
     def test_details(self):
         r = self.c.get("/profapp/students/2222/")
+        stu = Student.opbjects.get(am=2222)
+
         self.assertIn("2222", r.content)
         self.assertIn("Chris", r.content)
         self.assertIn("Perivolas", r.content)
+        self.assertIn("/grades/?stud=%d" % stu.pk, r.content)
 
     def test_update(self):
         """
