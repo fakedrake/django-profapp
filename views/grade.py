@@ -18,6 +18,7 @@ class GradeListView(ListView):
         stud = self.request.GET.get('stud')
 	subj = self.request.GET.get('subj')
         exam = self.request.GET.get('exam')
+
         if stud:
             kwargs['student'] = Student.objects.get(pk=stud)
 
@@ -28,25 +29,27 @@ class GradeListView(ListView):
 	    kwargs['exam'] = Exam.objects.get(pk=exam)
 
         return super(GradeListView, self).get_context_data(**kwargs)
-    
+
     def get_queryset(self):
 	filters = dict()
         stud = self.request.GET.get('stud')
 	exam = self.request.GET.get('exam')
 	subj = self.request.GET.get('subj')
 
+        sort_by = self.request.GET.get('sort') or 'grade'
+
         if stud:
             filters['student'] = int(stud)
 	if exam:
 	    filters['exam'] = int(exam)
 	if subj:
-	    filters['subj'] = int(subj)
-    
+	    filters['exam__subject'] = int(subj)
+
 	if filters:
-	    return Grade.objects.filter(**filters)
+	    return Grade.objects.filter(**filters).order_by(sort_by)
 	else:
             return super(GradeListView, self).get_queryset()
-    
+
 class GradeMixin(object):
     """ A mixin to do standard stuff.
     """
@@ -68,12 +71,9 @@ class GradeUpdateView(GradeMixin, UpdateView):
     model = Grade
     form_class = GradeForm
     template_name = "profapp/grade/grade_form.djhtml"
-   
+
 
 class GradeDeleteView(GradeMixin, DeleteView):
     model = Grade
     slug_field = "subject"
     template_name = "profapp/grade/grade_confirm_delete.djhtml"
-
-       
-

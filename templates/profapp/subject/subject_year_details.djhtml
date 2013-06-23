@@ -18,7 +18,7 @@
 
   <dt>Students</dt>
   <dd><a href="{% url 'student_list' %}?subj={{ subject_year.pk }}">{{ student_count }} students enrolled</a></dd>
-  
+
   <dt>Exam count</dt>
   <dd><a href="{% url 'exam_view' %}?subj={{ subject_year.pk }}">{{ exam_count}} registered exams</a></dd>
 

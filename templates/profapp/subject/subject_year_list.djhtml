@@ -30,7 +30,9 @@ When?
   </tr>
   {% endfor %}
 </table>
-
+<p>
+  <a class="btn btn-success" href="{% url 'subject_create' %}"><i class="icon-plus icon-white"></i> New Semester</a>
+</p>
 
 {% endblock %}
 
