@@ -44,7 +44,4 @@ class TestGrades(TestCase):
 	self.assertNotIn(self.exam2.get_type_display(), r.content)
 
 	r = self.c.get("/profapp/grades/?stud=%s" % self.stu[0].pk)
-        for s in self.stu[1:]:
-            self.assertNotIn("<td>%s</td>" % s.am, r.content)
-
-        self.assertIn("<td>%s</td>" % self.stu[0].am, r.content)
+        self.assertEqual(4, len(r.content.split("<tr>")))
