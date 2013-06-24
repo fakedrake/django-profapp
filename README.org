@@ -10,7 +10,7 @@
 
    Install =django= development version and =django-bootsrap-toolkit=:
    #+BEGIN_EXAMPLE
-   $ bin/pip install git+https://github.com/django/django  django-bootstrap-toolkit
+   $ bin/pip install git+https://github.com/django/django  git+https://github.com/fakedrake/django-bootstrap-toolkit
    #+END_EXAMPLE
 
    Create a django project and clone this project into it:
@@ -40,7 +40,7 @@ DATABASES = {
 
    ...
 
-STATIC_ROOT='/path/to/ProfessorSite/static/'
+STATIC_ROOT=os.path.join(BASE_DIR, 'static/')
 
 ...
 
@@ -64,6 +64,22 @@ INSTALLED_APPS = (
 )
    #+END_SRC
 
+   Then you need to add our application to the =ProfessorSite/urls.py=.
+
+   #+BEGIN_EXAMPLE
+   ...
+
+   urlpatterns = patterns('',
+                       # Examples:
+                       # url(r'^$', 'ProfessorSite.views.home', name='home'),
+                       # url(r'^blog/', include('blog.urls')),
+
+                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^profapp/', include('profapp.urls')),
+   )
+
+   #+END_EXAMPLE
+
    Now you can run =manage.py=
    #+BEGIN_EXAMPLE
    $ ../bin/python manage.py syncdb
@@ -71,7 +87,13 @@ INSTALLED_APPS = (
    $ ../bin/python manage.py runserver
    #+END_EXAMPLE
 
-   And you have a fully functional development server!
+   If you want sample data in your database run:
+   #+BEGIN_EXAMPLE
+   $ ../bin/python manage.py sample_data
+   #+END_EXAMPLE
+
+   And you have a fully functional development server! Open your
+   favourite web browser at http://localhost:8000/profapp/home
 
 
 ** Roadmap
