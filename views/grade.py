@@ -7,6 +7,7 @@ from django.views.generic import DetailView, ListView, CreateView, UpdateView, D
 
 from profapp.models import Exam, Student, SemesterSubject, Grade
 from profapp.forms import GradeForm
+from profapp.views.sorter import Sorter
 
 
 class GradeListView(ListView):
@@ -30,13 +31,14 @@ class GradeListView(ListView):
 
         return super(GradeListView, self).get_context_data(**kwargs)
 
+
     def get_queryset(self):
 	filters = dict()
         stud = self.request.GET.get('stud')
 	exam = self.request.GET.get('exam')
 	subj = self.request.GET.get('subj')
-
-        sort_by = self.request.GET.get('sort') or 'grade'
+        sort_by = self.request.GET.get('sort')
+        sorter = Sorter("exam", "grade", "id", student="student__am", year="exam__subject__year", default="-grade")
 
         if stud:
             filters['student'] = int(stud)
@@ -46,9 +48,11 @@ class GradeListView(ListView):
 	    filters['exam__subject'] = int(subj)
 
 	if filters:
-	    return Grade.objects.filter(**filters).order_by(sort_by)
+	    ret = Grade.objects.filter(**filters)
 	else:
-            return super(GradeListView, self).get_queryset()
+            ret = super(GradeListView, self).get_queryset()
+
+        return ret.order_by(sorter.order_col(sort_by))
 
 class GradeMixin(object):
     """ A mixin to do standard stuff.
