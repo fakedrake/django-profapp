@@ -20,11 +20,17 @@ class SubjectYearDetailView(DetailView):
 	kwargs['grade_count'] = 0
 	for e in Exam.objects.filter(subject=self.object.pk):
 		kwargs['grade_count'] += len(Grade.objects.filter(exam=e.pk))
-        
+
 	return super(SubjectYearDetailView, self).get_context_data(**kwargs)
 
 
 class SubjectListView(ListView):
+    """
+    List all subjects once. A subject may appear with the same name
+    for amny years.
+    """
+
+
     template_name = "profapp/subject/subject_list.djhtml"
     context_object_name = "subjects"
     model = SemesterSubject
@@ -33,6 +39,11 @@ class SubjectListView(ListView):
 	return SemesterSubject.objects.values('name').distinct()
 
 class SubjectYearListView(ListView):
+    """
+    Show all the years of a subject.
+    """
+
+
     template_name = "profapp/subject/subject_year_list.djhtml"
     context_object_name = "subjects_year"
     model = SemesterSubject

@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 
     url(r'^subjects/new/$', semestersubject.SemesterSubjectCreateView.as_view(), name='subject_create'),
     url(r'^subjects/(?P<pk>\d+)/$', semestersubject.SubjectYearDetailView.as_view(), name="subject_year_view"),
-    url(r'^subjects/(?P<slug>[\w-]+)/$', semestersubject.SubjectYearListView.as_view(), name="subject_year_list"),
+                       url(r'^subjects/(?P<slug>[\w ]+)/$', semestersubject.SubjectYearListView.as_view(), name="subject_year_list"),
     url(r'^subjects/(?P<pk>\d+)/update/$', semestersubject.SemesterSubjectUpdateView.as_view(), name='update_subject'),
     url(r'^subjects/(?P<pk>\d+)/delete/$', semestersubject.SemesterSubjectDeleteView.as_view(), name='delete_subject'),
     url(r'^subjects/$', semestersubject.SubjectListView.as_view(), name="subject_list"),
