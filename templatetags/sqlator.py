@@ -35,7 +35,6 @@ class DbQueryListNode(Node):
         return "<DbQueryListNode>"
 
     def render(self, context):
-        print "Rendering some queries"
         if not settings.TEMPLATE_DEBUG:
             return ""
         s = ""
