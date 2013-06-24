@@ -8,9 +8,9 @@
    $ virtualenv --no-site-packages .
    #+END_EXAMPLE
 
-   Install =django= and =django-bootsrap-toolkit=:
+   Install =django= development version and =django-bootsrap-toolkit=:
    #+BEGIN_EXAMPLE
-   $ bin/pip install django django-bootstrap-toolkit
+   $ bin/pip install git+https://github.com/django/django  django-bootstrap-toolkit
    #+END_EXAMPLE
 
    Create a django project and clone this project into it:
