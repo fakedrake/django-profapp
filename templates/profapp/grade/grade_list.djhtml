@@ -23,14 +23,14 @@ Grades
 <table class="table table-hover">
   <tr>
 {% if not student %}
-    <th>Student</th>
+<th><a href=".?sort=-student">Student</a></th>
 {% endif %}
 {% if not subject %}
-    <th>Subject</th>
+    <th><a href=".?sort=-subject">Subject</a></th>
 {% endif %}
-    <th>Year</th>
-    <th>Exam</th>
-    <th>Grade</th>
+    <th><a href=".?sort=-year">Year</a></th>
+    <th><a href=".?sort=-exam">Exam</a></th>
+    <th><a href=".?sort=-grade">Grade</a></th>
     <th>Action</th>
   </tr>
       {% for grade in grades %}
@@ -56,7 +56,7 @@ Grades
   </tr>
 {% endfor %}
 </table>
-      
+
 {% else %}
 	<p> No grades found! </p>
 {% endif %}

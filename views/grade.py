@@ -14,11 +14,14 @@ class GradeListView(ListView):
     template_name = "profapp/grade/grade_list.djhtml"
     context_object_name = "grades"
     model = Grade
+    sorter = Sorter("exam", "grade", "id", student="student__am", year="exam__subject__year", default="-grade")
+
 
     def get_context_data(self, **kwargs):
         stud = self.request.GET.get('stud')
 	subj = self.request.GET.get('subj')
         exam = self.request.GET.get('exam')
+        sort_by = self.request.GET.get('sort')
 
         if stud:
             kwargs['student'] = Student.objects.get(pk=stud)
@@ -38,7 +41,6 @@ class GradeListView(ListView):
 	exam = self.request.GET.get('exam')
 	subj = self.request.GET.get('subj')
         sort_by = self.request.GET.get('sort')
-        sorter = Sorter("exam", "grade", "id", student="student__am", year="exam__subject__year", default="-grade")
 
         if stud:
             filters['student'] = int(stud)
@@ -52,7 +54,7 @@ class GradeListView(ListView):
 	else:
             ret = super(GradeListView, self).get_queryset()
 
-        return ret.order_by(sorter.order_col(sort_by))
+        return ret.order_by(self.sorter.order_col(sort_by))
 
 class GradeMixin(object):
     """ A mixin to do standard stuff.

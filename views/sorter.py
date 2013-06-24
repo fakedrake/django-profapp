@@ -11,11 +11,18 @@ class Sorter(object):
         self.columns = set(list(args) + kwargs.values())
         self.mapping = kwargs
 
+    def reverse_sort(self, arg):
+        """
+        True if reverse sorting.
+        """
+        return arg[0] == "-"
+
+
     def order_col(self, arg):
         """
         Return something order_by understands.
         """
-        if arg[0] == "-":
+        if self.reverse_sort(arg):
             col = arg[1:]
             tmpl = "-%s"
         else:
