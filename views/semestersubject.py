@@ -43,7 +43,6 @@ class SubjectYearListView(ListView):
     Show all the years of a subject.
     """
 
-
     template_name = "profapp/subject/subject_year_list.djhtml"
     context_object_name = "subjects_year"
     model = SemesterSubject
@@ -51,7 +50,7 @@ class SubjectYearListView(ListView):
 
     def get_queryset(self):
      	subj = self.kwargs['slug']
-        return SemesterSubject.objects.filter(name=subj)
+        return SemesterSubject.objects.filter(name=subj).order_by('-year')
 
 
 class SemesterSubjectMixin(object):

@@ -35,10 +35,10 @@ def create_students(min_am, max_am):
     for i in xrange(min_am, max_am):
         if not Student.objects.filter(am=i).exists():
             st = Student.objects.create(am=i,
-                                   date_enrolled=datetime.datetime.now(),
-                                   semester=i%10,
-                                   first_name="Chodey%d" % (i - min_am),
-                                   last_name="McNumnuts")
+                                        date_enrolled=datetime.datetime.now(),
+                                        semester=i%10,
+                                        first_name="Chodey%d" % (i - min_am),
+                                        last_name="McNumnuts")
         else:
             st = Student.objects.get(am=i)
 
@@ -55,10 +55,17 @@ def create_subjects(students, k):
     ret = []
     stud_set = random_partition(k, students)
     for i in xrange(k):
-        subj = SemesterSubject(name="Subject %d" % i, year=2000+i%13)
-        subj.save()
-        subj.students.add(*stud_set[i])
-        subj.save()
+        s_name = "Subject %d" % (i/13)
+        s_year = 2000 + i%13
+
+        if SemesterSubject.objects.filter(name=s_name, year=s_year).exists():
+            subj = SemesterSubject.objects.get(name=s_name, year=s_year)
+        else:
+            subj = SemesterSubject(name=s_name, year=s_year)
+            subj.save()
+            subj.students.add(*stud_set[i])
+            subj.save()
+
         ret.append(subj)
 
     return ret
@@ -73,7 +80,15 @@ def create_exams(subjects):
     for s in subjects:
         for t in xrange(random.randrange(len(EXAM_TYPES))):
             tmp = random.randrange(len(EXAM_TYPES))
-            ret.append(Exam.objects.create(subject=s, type=EXAM_TYPES[tmp][0], percent=100/len(EXAM_TYPES)*tmp))
+            e_type = EXAM_TYPES[tmp][0]
+            e_prc = 100/len(EXAM_TYPES)*tmp
+
+            if Exam.objects.filter(subject=s, type=e_type, percent=e_prc).exists():
+                exam = Exam.objects.get(subject=s, type=e_type, percent=e_prc)
+            else:
+                exam = Exam.objects.create(subject=s, type=e_type, percent=e_prc)
+
+            ret.append(exam)
 
     return ret
 
@@ -87,7 +102,12 @@ def create_grades(students):
         exams = Exam.objects.filter(subject__students=s)
         for e in random_partition(2, exams)[0]:
             # Get a couple of random exams that are available.
-            ret.append(Grade.objects.create(student=s, grade=random.randrange(10), exam=e))
+            if Grade.objects.filter(student=s, grade=random.randrange(10), exam=e).exists():
+                grade = Grade.objects.get(student=s, grade=random.randrange(10), exam=e)
+            else:
+                grade = Grade.objects.create(student=s, grade=random.randrange(10), exam=e)
+
+            ret.append(grade)
 
     return ret
 
